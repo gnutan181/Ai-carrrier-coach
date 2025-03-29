@@ -1,0 +1,2 @@
+PGUSER=nutangupta
+PGPASSWORD=npg_NQjPJn5BL1mt
