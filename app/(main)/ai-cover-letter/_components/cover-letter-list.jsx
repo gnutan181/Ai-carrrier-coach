@@ -40,7 +40,7 @@ export default function CoverLetterList({ coverLetters }) {
 
   if (!coverLetters?.length) {
     return (
-      <Card>
+      <Card className="mx-10 text-lg lg:text-2xl">
         <CardHeader>
           <CardTitle>No Cover Letters Yet</CardTitle>
           <CardDescription>

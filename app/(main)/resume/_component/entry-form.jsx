@@ -96,7 +96,7 @@ setIsAdding(false)
     
     
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 '>
          <div className='space-y-4'>
 {entries.map((item,index)=>{
   return (

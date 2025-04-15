@@ -58,7 +58,7 @@ export default function Home() {
     <p className="text-muted-foreground">Success rate</p>
    </div>
    <div className="flex flex-col items-center justify-center space-y-2">
-    <h3 className="text-4xl font-bold">27/7</h3>
+    <h3 className="text-4xl font-bold">24/7</h3>
     <p className="text-muted-foreground">AI Support</p>
    </div>
     </div>

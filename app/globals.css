@@ -190,3 +190,33 @@
 .hero-image.scrolled{
   transform: rotateX(0deg) scale(1) translateY(40px);
 }
+#resume-pdf {
+  background: #ffffff !important;
+  color: #000000 !important;
+  --background: #ffffff !important;
+  --foreground: #000000 !important;
+  --card: #ffffff !important;
+  --card-foreground: #000000 !important;
+  --popover: #ffffff !important;
+  --popover-foreground: #000000 !important;
+  --primary: #3333ff !important;
+  --primary-foreground: #ffffff !important;
+  --secondary: #cccccc !important;
+  --secondary-foreground: #333333 !important;
+  --muted: #dddddd !important;
+  --muted-foreground: #666666 !important;
+  --accent: #eeeeee !important;
+  --accent-foreground: #222222 !important;
+  --destructive: #ff5555 !important;
+  --border: #dddddd !important;
+  --input: #dddddd !important;
+  --ring: #888888 !important;
+  --sidebar: #f1f1f1 !important;
+  --sidebar-foreground: #111111 !important;
+  --sidebar-primary: #4444ff;
+  --sidebar-primary-foreground: #ffffff !important;
+  --sidebar-accent: #f0f0f0 !important;
+  --sidebar-accent-foreground: #111111 !important;
+  --sidebar-border: #dddddd !important;
+  --sidebar-ring: #999999 !important;
+}

@@ -14,15 +14,22 @@ import EntryForm from "./entry-form"
 import { entriesToMarkdown } from "@/app/lib/helper"
 import MDEditor from "@uiw/react-md-editor"
 import { useUser } from "@clerk/nextjs"
-import dynamic from 'next/dynamic';
-import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
+// import dynamic from 'next/dynamic';
+// import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
 import { toast } from "sonner"
+import dynamic from 'next/dynamic';
+const html2pdf = dynamic(() => import("html2pdf.js/dist/html2pdf.min.js"), { ssr: false });
+
 const ResumeBuilder = ({initialContent}) => {
     const [activeTab, setActiveTab] = useState("edit")
  const [resumeMode,setResumeMode] = useState("preview")
  const [previewContent,setPreviewContent] = useState(initialContent)
  const [isGenerating, setIsGenerating] = useState(false)
  const {user} = useUser()
+
+
+
+
 
    const{control,register,handleSubmit,watch,formState:{errors},} = useForm({
         resolver : zodResolver(resumeSchema),
@@ -46,7 +53,10 @@ const ResumeBuilder = ({initialContent}) => {
    useEffect(()=>{
     if(initialContent) setActiveTab("preview")
    },[initialContent])
-
+  //  useEffect(() => {
+    // handleExportPDF();
+  // }, []);
+  
    useEffect(()=>{
 if(activeTab === "edit"){
   const newContent = getCombinedContent();
@@ -103,14 +113,28 @@ if(activeTab === "edit"){
       console.error("Save error",error)
     }
    }
-  
-   // youtube
+   
+//  const handleExportPDF = async () => {
+//   if (typeof window !== 'undefined') {
+//     const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
+//     const element = document.getElementById('resume-pdf');
+//     html2pdf().from(element).save();
+//   }
+// };
+   
   const generatePDF = async () => {
+    // await handleExportPDF()
+ 
+      // html2pdf().from(element).save();
+   
     setIsGenerating(true);
     try {
       // const html2pdf = (await import("html2pdf.js")).default; // Dynamically import
-      const element = document.getElementById("resume-pdf");
-console.log(element,"e")
+      if (typeof window !== 'undefined') {
+        const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
+        const element = document.getElementById('resume-pdf');
+      // const element = document.getElementById("resume-pdf");
+// console.log(element,"e")
       if (!element) {
         console.error("Resume element not found!");
         setIsGenerating(false);
@@ -126,20 +150,21 @@ console.log(element,"e")
       };
 
       await html2pdf().set(opt).from(element).save();
+    }
     } catch (error) {
       console.error("PDF generation error:", error);
     } finally {
       setIsGenerating(false);
     }
-  };
+  }
   // console.log("previewContent",previewContent)
   return (
     
     <div>
 
   
-    <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-      <h1 className="font-bold gradient-title text-5xl md:text-6xl">
+    <div className=" flex flex-col md:flex-row justify-between items-center gap-2">
+      <h1 className="font-bold gradient-title text-5xl md:text-6xl pb-4">
         Resume Builder 
       </h1>
       <div className="space-x-2">
