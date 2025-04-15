@@ -133,8 +133,7 @@ if(activeTab === "edit"){
       if (typeof window !== 'undefined') {
         const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
         const element = document.getElementById('resume-pdf');
-      // const element = document.getElementById("resume-pdf");
-// console.log(element,"e")
+     
       if (!element) {
         console.error("Resume element not found!");
         setIsGenerating(false);
