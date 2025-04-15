@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider appearance={{
       baseTheme :dark
-    }}>
+    }} publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.className}}`}
@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
 
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>Made with  ❤️ by Nutan</p>
+                <p>Made with ❤️ by Nutan</p>
               </div>
             </footer>
             {/* footer */}
