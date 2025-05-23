@@ -40,6 +40,7 @@ const OnboardingForm = ({industries}) => {
 const onSubmit= async(values)=>{
   try {
 const formattedIndustry = `${values.industry}-${values.subIndustry.toLowerCase().replace(/  /g, "-")}`    
+console.log(formattedIndustry,"formattedIndustry")
 await updateUserFn({
   ...values,
   industry :formattedIndustry,
@@ -49,6 +50,7 @@ await updateUserFn({
   }
 }
 useEffect(()=>{
+  console.log(updateResult,"updateResult")
 if(updateResult?.success && !updateLoading){
   toast.success("profile completed successfully")
   router.push("/dashboard");

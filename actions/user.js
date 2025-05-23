@@ -7,6 +7,7 @@ import { auth } from '@clerk/nextjs/server'
 export async function updateUser(data){
 
     const {userId} =await auth()
+    console.log(userId,"userId")
     if(!userId) throw new Error("Unauthorized")
 
         const user = await db.user.findUnique({
@@ -14,13 +15,14 @@ export async function updateUser(data){
                 clerkUserId : userId
             }
         })
+        console.log(user,"user")
         if(!user) throw new Error("User not found")
             try {
         // transaction means that if one of these is fails , transaction will fail
         const result = await db.$transaction(
             async(tx)=>{
  // find if the industry exists
- let industryInsight = await  tx.industryInsight.findUnique({
+ let industryInsight = await tx.industryInsight.findUnique({
     where :{
         industry :data.industry,
     }
@@ -28,7 +30,7 @@ export async function updateUser(data){
  
  // if industry doesn't exist , create it with default values-will replace it with later
 if(!industryInsight) {
-    const insights = await generateAIInsights(data.industry);
+    const insights = await generateAIInsights(data?.industry);
      industryInsight = await db.industryInsight.create({
        data :{
            industry : data.industry,

@@ -81,9 +81,11 @@ export async function improveWithAI({current ,type}){
             4. Keep it concise but detailed
             5. Focus on achievements over responsibilities
             6. Use industry-specific keywords
-            7. Should be ATS friendly
+            7. Should be ATS friendly with 85+ score
+            8. Keep in bullet Point
+            9. Must be impressive for a recuriter
             
-            Format the response as a single paragraph without any additional text or explanations.
+            Format the response as a bullet point without any additional text or explanations.
           `;
         
           try {

@@ -113,56 +113,74 @@ if(activeTab === "edit"){
       console.error("Save error",error)
     }
    }
-   
-//  const handleExportPDF = async () => {
-//   if (typeof window !== 'undefined') {
-//     const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
-//     const element = document.getElementById('resume-pdf');
-//     html2pdf().from(element).save();
-//   }
-// };
-   
-  const generatePDF = async () => {
-    // await handleExportPDF()
- 
-      // html2pdf().from(element).save();
-   
-    setIsGenerating(true);
-    try {
-      // const html2pdf = (await import("html2pdf.js")).default; // Dynamically import
-      if (typeof window !== 'undefined') {
-        const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
-        const element = document.getElementById('resume-pdf');
-     
-      if (!element) {
-        console.error("Resume element not found!");
-        setIsGenerating(false);
-        return;
-      }
+   const generatePDF = async () => {
 
-      const opt = {
-        margin: 10,
-        filename: "resume.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      };
+    // console.log("2wed")
+     setIsGenerating(true);
+     try {
+       console.log(typeof window !== 'undefined')
+       // const html2pdf = (await import("html2pdf.js")).default; // Dynamically import
+       if (typeof window !== 'undefined') {
+         const html2pdf = (await import("html2pdf.js/dist/html2pdf.min.js")).default;
+         const original = document.getElementById('resume-pdf');
+console.log(original)
+        //  const element = document.getElementById("resume-pdf");
 
-      await html2pdf().set(opt).from(element).save();
-    }
-    } catch (error) {
-      console.error("PDF generation error:", error);
-    } finally {
-      setIsGenerating(false);
-    }
+  if (!original) {
+    console.error("Element with ID 'resume-pdf' not found.");
+    return;
   }
+
+  original.classList.remove("dark");
+  original.classList.add("light"); 
+  original.classList.add("pdf-export");
+
+      html2pdf()
+    .from(original)
+    .set({
+      margin: 7,
+          filename: "resume.pdf",
+         image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: 2, 
+        logging: true,  
+        dpi: 300,  
+      },
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait",
+      },
+    })
+    .save()
+    .get('pdf')
+    .then(() => {
+      document.body.removeChild(clone);  // Cleanup clone after PDF is generated
+    });
+       
+     }
+     } catch (error) {
+       console.error("PDF generation error:", error);
+     } finally {
+       setIsGenerating(false);
+     }
+   }
+   useEffect(()=>{
+    const loadHtml2pdf = async()=>{
+
+      (await import("html2pdf.js/dist/html2pdf.min.js")).default;
+    }
+    loadHtml2pdf()
+   },[generatePDF])
+
+ 
   // console.log("previewContent",previewContent)
   return (
     
     <div>
 
   
-    <div className=" flex flex-col md:flex-row justify-between items-center gap-2">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-2">
       <h1 className="font-bold gradient-title text-5xl md:text-6xl pb-4">
         Resume Builder 
       </h1>
@@ -424,12 +442,10 @@ error={errors.summary}
       />
      </div> 
 <div className="hidden" style={{ background: "white", color: "black" }}>
-  <div id="resume-pdf">
+  <div id="resume-pdf" className="dark" >
   <MDEditor.Markdown 
   source={previewContent} 
-  style={{ background:"white",
-    color :"black"
-   }} />
+ />
   </div>
   </div>
   </TabsContent>
