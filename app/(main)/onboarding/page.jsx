@@ -9,7 +9,7 @@ const {isOnboarded} =await getUserOnboardingStatus()
 if(isOnboarded){
   redirect("/dashboard")
 }
-    
+             
   return (
     <main>
       <OnboardingForm industries={industries} />

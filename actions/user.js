@@ -27,7 +27,7 @@ export async function updateUser(data){
         industry :data.industry,
     }
  })
- 
+ // user_2xUbJEsSrdtcHiog71Qlcpr966J
  // if industry doesn't exist , create it with default values-will replace it with later
 if(!industryInsight) {
     const insights = await generateAIInsights(data?.industry);
@@ -72,12 +72,13 @@ export async function getUserOnboardingStatus(data){
 
     const {userId} =await auth()
     if(!userId) throw new Error("Unauthorized")
-// console.log(userId)
+console.log(userId,"userIDVBHJK")
         const user = await db.user.findUnique({
             where:{
                 clerkUserId : userId
             }
         })
+        console.log(user,"user")
         if(!user) throw new Error("User not found")
       
   try {
